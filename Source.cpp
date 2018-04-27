@@ -12,6 +12,7 @@
 #include"countMovesLocalMap.h"
 #include"countMovesGlobalMap.h"
 #include"countMovesIterateLinked.h"
+#include"countMovesMultiThread.h"
 
 using namespace std;
 
@@ -20,8 +21,13 @@ void testInput();
 void testPerformance();
 
 
+
+
 int main() {
 	//testInput2();
+	vector<size_t> vec = {4,3,2,1};
+	size_t moves =  countMovesMultiThread(vec);
+	cout << moves << endl;
 	testCountMoves();
 	testPerformance();
 
@@ -241,6 +247,13 @@ void testPerformance() {
 	diff = end - start;
 	cout << "countMovesIterateLinked, vecSize: " << vecSize << ", " << diff.count() << endl;
 
+	fillVector(vec, vecSize);
+	start = std::chrono::high_resolution_clock::now();
+	moves = countMovesMultiThread(vec);
+	end = std::chrono::high_resolution_clock::now();
+	diff = end - start;
+	cout << "countMovesMultiThread, vecSize: " << vecSize << ", " << diff.count() << endl;
+
 	cout << __FUNCTION__ << " os ok" << endl;
 }
 
@@ -374,9 +387,10 @@ void testCountMoves() {
 	assert(moves == expected);
 
 	vec = vec = { 24,13,14,22,10,9,7,8,6,25 };
-	//moves = countMovesGlobalMap(vec);
+	moves = countMovesMultiThread(vec);
 	expected = 32;
 	assert(moves == expected);
+
 
 	vec = { 4,3,2,1,1 };
 	moves = countMovesSwap(vec);
