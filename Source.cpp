@@ -26,7 +26,7 @@ void testPerformance();
 int main() {
 	//testInput2();
 	vector<size_t> vec = {4,3,2,1};
-	size_t moves =  countMovesMultiThread(vec);
+	size_t moves =  countMovesMultiThread(vec); 
 	cout << moves << endl;
 	testCountMoves();
 	testPerformance();
